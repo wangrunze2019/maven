@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.mapper.EbookMapper">
+
+    <!--根据分类来查询图书列表信息-->
+	<select id="selectEbooksByCatogory" resultType="com.java.pojo.EbookEntry" parameterType="Long">
+		SELECT ee.* FROM ebook_entry ee INNER JOIN ebook_catogory ec
+        ON ee.catgoryId=ec.id
+        <if test="_parameter!=0">
+            WHERE ec.id=#{0}
+        </if>
+	</select>
+
+    <!--插入电子书-->
+    <insert id="insertEbookEntry" parameterType="com.java.pojo.EbookEntry" >
+        insert into ebook_entry
+        values (NULL , #{catgoryId}, #{title},
+        #{summary}, #{uploaduser}, #{createdate})
+    </insert>
+
+</mapper>
